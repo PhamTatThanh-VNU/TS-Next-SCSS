@@ -2,6 +2,19 @@
 @use '../../abstract/mixins' as *;
 
 .track-list {
+    min-height: 100vh;
+    
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1.5rem;
+    }
+    
+    &--loading {
+        .track-list__loading {
+            min-height: 300px;
+        }
+    }
 
     &__loading,
     &__empty {
@@ -10,9 +23,12 @@
         padding: $space-xl;
         color: $gray;
         min-height: 200px;
+        border-radius: $radius;
+        background-color: rgba($white, 0.02);
 
         p {
             margin-top: $space-sm;
+            font-size: $text-md;
         }
     }
 
@@ -51,8 +67,21 @@
     border-top: 2px solid $green;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    
+    &--large {
+        width: 40px;
+        height: 40px;
+        border-width: 3px;
+    }
+    
+    &--small {
+        width: 18px;
+        height: 18px;
+        border-width: 1.5px;
+    }
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

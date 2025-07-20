@@ -3,16 +3,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { BiPlay, BiPause, BiSkipPrevious, BiSkipNext, BiVolumeFull, BiVolumeLow, BiVolumeMute } from 'react-icons/bi';
 import { SearchResult } from '@/lib/deezer/search-module';
+import { useRouter } from 'next/navigation';
 
 interface PlayerControlsProps {
   track: SearchResult;
+  prevTrackId?: number;
+  nextTrackId?: number;
 }
 
-export default function PlayerControls({ track }: PlayerControlsProps) {
+export default function PlayerControls({ track, prevTrackId, nextTrackId }: PlayerControlsProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(0.7);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // Tạo audio element khi component mount
@@ -89,6 +93,14 @@ export default function PlayerControls({ track }: PlayerControlsProps) {
     if (volume < 0.5) return <BiVolumeLow />;
     return <BiVolumeFull />;
   };
+  
+  const navigateToTrack = (trackId: number) => {
+    // Dừng phát nhạc hiện tại trước khi chuyển bài
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    router.push(`/track/${trackId}`);
+  };
 
   return (
     <div className="player-controls">
@@ -110,7 +122,11 @@ export default function PlayerControls({ track }: PlayerControlsProps) {
       </div>
       
       <div className="player-controls__buttons">
-        <button className="player-controls__button">
+        <button 
+          className={`player-controls__button ${!prevTrackId ? 'player-controls__button--disabled' : ''}`}
+          onClick={() => prevTrackId && navigateToTrack(prevTrackId)}
+          disabled={!prevTrackId}
+        >
           <BiSkipPrevious />
         </button>
         
@@ -121,7 +137,11 @@ export default function PlayerControls({ track }: PlayerControlsProps) {
           {isPlaying ? <BiPause /> : <BiPlay />}
         </button>
         
-        <button className="player-controls__button">
+        <button 
+          className={`player-controls__button ${!nextTrackId ? 'player-controls__button--disabled' : ''}`}
+          onClick={() => nextTrackId && navigateToTrack(nextTrackId)}
+          disabled={!nextTrackId}
+        >
           <BiSkipNext />
         </button>
       </div>

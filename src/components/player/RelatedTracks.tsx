@@ -6,26 +6,31 @@ import { SearchResult } from '@/lib/deezer/search-module';
 import deezerService from '@/lib/deezer/deezer-service';
 
 interface RelatedTracksProps {
-  artistName: string;
+  artistId: number;
   currentTrackId: number;
 }
 
-export default function RelatedTracks({ artistName, currentTrackId }: RelatedTracksProps) {
+export default function RelatedTracks({ artistId, currentTrackId }: RelatedTracksProps) {
   const [tracks, setTracks] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRelatedTracks = async () => {
-      if (!artistName) return;
+      if (!artistId) return;
       
       setLoading(true);
       try {
-        const response = await deezerService.searchTracks(`artist:"${artistName}"`, 10);
+        const artist = await deezerService.getArtist(artistId);
         
-        const filteredTracks = response.data
-          .filter(track => track.id !== currentTrackId)
-          .slice(0, 5);
-        setTracks(filteredTracks);
+        if (artist && artist.name) {
+          // Tìm kiếm bài hát theo tên nghệ sĩ
+          const response = await deezerService.searchTracks(`artist:"${artist.name}"`, 10);
+          
+          const filteredTracks = response.data
+            .filter(track => track.id !== currentTrackId)
+            .slice(0, 5);
+          setTracks(filteredTracks);
+        }
       } catch (error) {
         console.error("Error fetching related tracks:", error);
       } finally {
@@ -34,7 +39,7 @@ export default function RelatedTracks({ artistName, currentTrackId }: RelatedTra
     };
 
     fetchRelatedTracks();
-  }, [artistName, currentTrackId]);
+  }, [artistId, currentTrackId]);
 
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);

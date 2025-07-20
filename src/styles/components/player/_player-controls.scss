@@ -79,12 +79,17 @@
     justify-content: center;
     transition: color 0.2s ease, transform 0.1s ease;
     
-    &:hover {
+    &:hover:not(:disabled) {
       color: var(--text-primary);
     }
     
-    &:active {
+    &:active:not(:disabled) {
       transform: scale(0.95);
+    }
+    
+    &--disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
     
     &--play {

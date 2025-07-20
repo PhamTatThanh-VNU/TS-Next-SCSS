@@ -39,7 +39,7 @@ export default function ArtistInfo({ artist }: ArtistInfoProps) {
           </div>
           
           <Link href={`/artist/${artist.id}`} className="artist-info__link">
-            Xem tất cả
+            Thông tin
           </Link>
         </div>
       </div>

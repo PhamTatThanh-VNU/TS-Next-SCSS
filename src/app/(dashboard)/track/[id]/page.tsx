@@ -11,14 +11,20 @@ import PlayerControls from '@/components/player/PlayerControls';
 import TrackInfo from '@/components/player/TrackInfo';
 import ArtistInfo from '@/components/player/ArtistInfo';
 import RelatedTracks from '@/components/player/RelatedTracks';
-import { SearchResult, Artist } from '@/lib/deezer/search-module';
+import { SearchResult, Artist, SearchResponse } from '@/lib/deezer/search-module';
 
 export default function TrackPage() {
   const { id } = useParams();  
   const [track, setTrack] = useState<SearchResult | null>(null);
   const [artist, setArtist] = useState<Artist | null>(null);
+  const [relatedTracks, setRelatedTracks] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  
+  // Xác định ID bài hát trước và sau
+  const currentTrackIndex = relatedTracks.findIndex(t => t.id === Number(id));
+  const prevTrackId = currentTrackIndex > 0 ? relatedTracks[currentTrackIndex - 1]?.id : undefined;
+  const nextTrackId = currentTrackIndex < relatedTracks.length - 1 ? relatedTracks[currentTrackIndex + 1]?.id : undefined;
 
   useEffect(() => {
     const fetchTrackData = async () => {
@@ -32,6 +38,10 @@ export default function TrackPage() {
         if (trackData && trackData.artist && trackData.artist.id) {
           const artistData = await deezerService.getArtist(trackData.artist.id);
           setArtist(artistData);
+          
+          // Fetch related tracks for navigation
+          const response = await deezerService.searchTracks(`artist:"${trackData.artist.name}"`, 20);
+          setRelatedTracks(response.data || []);
         }
       } catch (err) {
         console.error('Error fetching track data:', err);
@@ -107,12 +117,16 @@ export default function TrackPage() {
           <div className="track-player__content">
             <div className="track-player__main">
               <TrackInfo track={track} />
-              <PlayerControls track={track} />
+              <PlayerControls 
+                track={track}
+                prevTrackId={prevTrackId}
+                nextTrackId={nextTrackId} 
+              />
             </div>
             
             <div className="track-player__sidebar">
               {artist && <ArtistInfo artist={artist} />}
-              <RelatedTracks artistName={track.artist.name} currentTrackId={track.id} />
+              <RelatedTracks artistId={track.artist.id} currentTrackId={track.id} />
             </div>
           </div>
         </div>

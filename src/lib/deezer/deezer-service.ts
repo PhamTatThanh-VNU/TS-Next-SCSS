@@ -2,24 +2,17 @@ import axios from "axios";
 import { SearchResult, SearchResponse, Artist, Album } from "./search-module";
 
 class DeezerService {
-  private PROXY_URL: string = "https://cors-anywhere.herokuapp.com/";
-  private DEEZER_API_URL: string = "https://api.deezer.com";
-
-  private getProxiedUrl(url: string): string {
-    return `${this.PROXY_URL}${url}`;
-  }
+  private API_BASE_URL: string = "/api/deezer";
 
   async searchTracks(query: string, limit: number = 20): Promise<SearchResponse> {
     try {
-      const response = await axios.get(
-        this.getProxiedUrl(`${this.DEEZER_API_URL}/search`),
-        {
-          params: {
-            q: query,
-            limit
-          }
+      const response = await axios.get(this.API_BASE_URL, {
+        params: {
+          path: 'search',
+          q: query,
+          limit
         }
-      );
+      });
       return response.data;
     } catch (error) {
       console.error('Error searching tracks:', error);
@@ -29,9 +22,11 @@ class DeezerService {
 
   async getTrack(id: number): Promise<SearchResult> {
     try {
-      const response = await axios.get(
-        this.getProxiedUrl(`${this.DEEZER_API_URL}/track/${id}`)
-      );
+      const response = await axios.get(this.API_BASE_URL, {
+        params: {
+          path: `track/${id}`
+        }
+      });
       return response.data;
     } catch (error) {
       console.error(`Error getting track ${id}:`, error);
@@ -41,9 +36,11 @@ class DeezerService {
 
   async getArtist(id: number): Promise<Artist> {
     try {
-      const response = await axios.get(
-        this.getProxiedUrl(`${this.DEEZER_API_URL}/artist/${id}`)
-      );
+      const response = await axios.get(this.API_BASE_URL, {
+        params: {
+          path: `artist/${id}`
+        }
+      });
       return response.data;
     } catch (error) {
       console.error(`Error getting artist ${id}:`, error);
@@ -53,9 +50,11 @@ class DeezerService {
 
   async getAlbum(id: number): Promise<Album> {
     try {
-      const response = await axios.get(
-        this.getProxiedUrl(`${this.DEEZER_API_URL}/album/${id}`)
-      );
+      const response = await axios.get(this.API_BASE_URL, {
+        params: {
+          path: `album/${id}`
+        }
+      });
       return response.data;
     } catch (error) {
       console.error(`Error getting album ${id}:`, error);
@@ -65,12 +64,12 @@ class DeezerService {
 
   async getCharts(limit: number = 20): Promise<SearchResponse> {
     try {
-      const response = await axios.get(
-        this.getProxiedUrl(`${this.DEEZER_API_URL}/chart/0/tracks`),
-        {
-          params: { limit }
+      const response = await axios.get(this.API_BASE_URL, {
+        params: {
+          path: 'chart/0/tracks',
+          limit
         }
-      );
+      });
       return response.data;
     } catch (error) {
       console.error('Error getting charts:', error);
