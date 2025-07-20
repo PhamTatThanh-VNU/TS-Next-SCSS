@@ -1,0 +1,46 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+.dashboard {
+    min-height: 100vh;
+    background-color: $dark;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+
+    &__main {
+        flex: 1;
+        padding-top: 80px; // Header height + space
+        padding-bottom: $space-2xl;
+    }
+
+    &__container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 $space-md;
+        
+        @include mobile {
+            padding: 0 $space-sm;
+        }
+    }
+    
+    &__title {
+        font-size: $text-xl;
+        font-weight: $font-bold;
+        margin-bottom: $space-lg;
+        color: $white;
+        text-align: center;
+    }
+    
+    &__section {
+        margin-bottom: $space-xl;
+        
+        &-title {
+            font-size: $text-lg;
+            font-weight: $font-semibold;
+            margin-bottom: $space-md;
+            color: $white;
+        }
+    }
+}

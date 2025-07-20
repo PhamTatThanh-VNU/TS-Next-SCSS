@@ -1,0 +1,76 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+.search-bar {
+    margin-bottom: $space-xl;
+    width: 100%;
+
+    &__form {
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    &__input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        background: rgba($white, 0.1);
+        border-radius: $radius-full;
+        border: 1px solid rgba($white, 0.2);
+        overflow: hidden;
+    }
+
+    &__icon {
+        position: absolute;
+        left: $space-md;
+        font-size: $text-lg;
+        color: $gray;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    &__input {
+        width: 100%;
+        height: 48px;
+        padding: 0 $space-md 0 calc(#{$space-md} * 2 + 18px); // Icon width + padding
+        background: transparent;
+        border: none;
+        color: $white;
+        font-size: $text-base;
+
+        &::placeholder {
+            color: $gray;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px $green;
+        }
+    }
+
+    &__clear {
+        position: absolute;
+        right: $space-sm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($white, 0.2);
+        color: $white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: all $ease;
+
+        &:hover {
+            background: rgba($white, 0.3);
+        }
+
+        svg {
+            font-size: 18px;
+        }
+    }
+}

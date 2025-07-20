@@ -1,0 +1,58 @@
+@use '../../abstract/variables' as *;
+@use '../../abstract/mixins' as *;
+
+.track-list {
+
+    &__loading,
+    &__empty {
+        @include center;
+        flex-direction: column;
+        padding: $space-xl;
+        color: $gray;
+        min-height: 200px;
+
+        p {
+            margin-top: $space-sm;
+        }
+    }
+
+    &__header {
+        margin-bottom: $space-lg;
+
+        h2 {
+            font-size: $text-lg;
+            color: $white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+
+            &::before {
+                content: '';
+                width: 4px;
+                height: 20px;
+                background: $green;
+                margin-right: $space-sm;
+                border-radius: $radius;
+            }
+        }
+    }
+
+    &__items {
+        display: grid;
+        gap: $space-sm;
+    }
+}
+
+// Spinner animation
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba($green, 0.3);
+    border-top: 2px solid $green;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

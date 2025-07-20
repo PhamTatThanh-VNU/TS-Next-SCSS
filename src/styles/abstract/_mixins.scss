@@ -1,0 +1,90 @@
+@use 'variables' as *;
+
+// === LAYOUT ===
+@mixin center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex($direction: row, $align: center, $justify: flex-start) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+// === BUTTON ===
+@mixin btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: $space-sm $space-md;
+    border: none;
+    border-radius: $radius-full;
+    font-family: $font;
+    font-size: $text-base;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $ease;
+    text-decoration: none;
+    width: 100%;
+    min-height: 48px;
+    
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// === MEDIA QUERIES ===
+@mixin mobile {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: 769px) and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1025px) {
+        @content;
+    }
+}
+
+// === SPOTIFY SPECIFIC ===
+@mixin spotify-card {
+    background: $dark-card;
+    border-radius: $radius;
+    padding: $space-md;
+    transition: background-color $ease;
+    
+    &:hover {
+        background: $dark-light;
+    }
+}
+
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: rgba($white, 0.2);
+        border-radius: 6px;
+        border: 3px solid $dark;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba($white, 0.3);
+    }
+}

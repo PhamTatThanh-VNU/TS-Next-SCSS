@@ -1,0 +1,38 @@
+@use '../abstract/variables' as *;
+@use '../abstract/mixins' as *;
+
+// === LOGIN PAGE ===
+.login {
+    &__form { margin-bottom: $space-md; }
+    
+    &__error {
+        background: rgba($red, 0.1);
+        border: 1px solid rgba($red, 0.3);
+        color: $red;
+        padding: $space-sm $space-md;
+        border-radius: $radius-md;
+        margin-bottom: $space-md;
+        font-size: $text-sm;
+        
+        &::before {
+            content: '⚠️ ';
+        }
+    }
+    
+    &__alternative { margin-bottom: $space-md; }
+    
+    &__forgot-password {
+        text-align: center;
+        margin-top: $space-md;
+        
+        a {
+            color: $green;
+            font-size: $text-sm;
+            text-decoration: none;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
