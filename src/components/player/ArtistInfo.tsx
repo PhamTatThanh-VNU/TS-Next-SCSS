@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Artist } from '@/lib/deezer/search-module';
+import Image from 'next/image';
 
 interface ArtistInfoProps {
   artist: Artist;
@@ -12,9 +13,11 @@ export default function ArtistInfo({ artist }: ArtistInfoProps) {
       
       <div className="artist-info__content">
         <div className="artist-info__image">
-          <img 
+          <Image 
             src={artist.picture_medium} 
             alt={artist.name} 
+            width={80}
+            height={80}
             loading="lazy"
           />
         </div>

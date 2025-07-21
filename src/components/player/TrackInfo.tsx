@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SearchResult } from '@/lib/deezer/search-module';
+import Image from 'next/image';
 
 interface TrackInfoProps {
   track: SearchResult;
@@ -15,9 +16,11 @@ export default function TrackInfo({ track }: TrackInfoProps) {
   return (
     <div className="track-info">
       <div className="track-info__cover">
-        <img 
+        <Image 
           src={track.album.cover_big || track.album.cover_medium} 
           alt={track.title}
+          width={300}
+          height={300}
           loading="eager"
         />
       </div>

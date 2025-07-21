@@ -11,7 +11,7 @@ import PlayerControls from '@/components/player/PlayerControls';
 import TrackInfo from '@/components/player/TrackInfo';
 import ArtistInfo from '@/components/player/ArtistInfo';
 import RelatedTracks from '@/components/player/RelatedTracks';
-import { SearchResult, Artist, SearchResponse } from '@/lib/deezer/search-module';
+import { SearchResult, Artist } from '@/lib/deezer/search-module';
 
 export default function TrackPage() {
   const { id } = useParams();  
@@ -21,7 +21,6 @@ export default function TrackPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // Xác định ID bài hát trước và sau
   const currentTrackIndex = relatedTracks.findIndex(t => t.id === Number(id));
   const prevTrackId = currentTrackIndex > 0 ? relatedTracks[currentTrackIndex - 1]?.id : undefined;
   const nextTrackId = currentTrackIndex < relatedTracks.length - 1 ? relatedTracks[currentTrackIndex + 1]?.id : undefined;

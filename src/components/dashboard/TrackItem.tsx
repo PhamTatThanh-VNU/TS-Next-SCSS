@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { BiPlay, BiPause } from 'react-icons/bi';
 import { SearchResult } from '@/lib/deezer/search-module';
+import Image from 'next/image'
 
 interface TrackItemProps {
   track: SearchResult;
@@ -33,9 +34,10 @@ export default function TrackItem({ track }: TrackItemProps) {
       <div className="track-item__index">{"-"}</div>
       
       <div className="track-item__cover">
-        <img 
+        <Image 
           src={track.album.cover_small} 
           alt={track.album.title}
+          fill
           loading="lazy"
         />
         <button 

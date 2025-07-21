@@ -8,6 +8,7 @@ import ProtectedRoute from '@/lib/utils/ProtectedRoute';
 import Header from '@/components/dashboard/Header';
 import deezerService from '@/lib/deezer/deezer-service';
 import { Artist, SearchResult } from '@/lib/deezer/search-module';
+import Image from 'next/image';
 
 export default function ArtistPage() {
   const { id } = useParams();
@@ -107,14 +108,12 @@ export default function ArtistPage() {
             <div className="artist-page__profile-content">
               <div className="artist-page__avatar">
                 {artist.picture_medium && (
-                  <img 
+                  <Image 
                     src={artist.picture_medium} 
                     alt={artist.name} 
+                    width={150}
+                    height={150}
                     loading="lazy"
-                    onError={(e) => {
-                      // Fallback nếu ảnh bị lỗi
-                      e.currentTarget.src = 'https://via.placeholder.com/150?text=Artist';
-                    }}
                   />
                 )}
               </div>
@@ -148,7 +147,7 @@ export default function ArtistPage() {
                   topTracks.map((track) => (
                     <Link href={`/track/${track.id}`} key={track.id} className="artist-page__track-item">
                       <div className="artist-page__track-image">
-                        <img src={track.album.cover_medium} alt={track.title} loading="lazy" />
+                        <Image src={track.album.cover_medium} alt={track.title} loading="lazy" width={266} height={266}/>
                         <div className="artist-page__track-play">
                           <span>▶</span>
                         </div>

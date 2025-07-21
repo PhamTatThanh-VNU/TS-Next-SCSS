@@ -48,6 +48,7 @@
         padding: $space-xs $space-sm;
         border-radius: $radius-full;
         background: rgba($dark-light, 0.4);
+        flex-grow: 0; // Ngăn không cho phần user info mở rộng quá mức
         
         &:hover {
             background: $dark-light;
@@ -79,7 +80,7 @@
         font-size: $text-sm;
         color: $white;
         font-weight: $font-medium;
-        max-width: 120px;
+        max-width: 180px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;

@@ -2,6 +2,8 @@
 
 import { useAuth } from '@/context/AuthContext';
 import { BiLogOut, BiUser } from 'react-icons/bi';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   const { user, signOut } = useAuth();
@@ -18,14 +20,16 @@ export default function Header() {
     <header className="header">
       <div className="header__container">
         <div className="header__logo">
-          <h1>Spotify Clone</h1>
+          <Link href="/dashboard">
+            <h1>Spotify Clone</h1>
+          </Link>
         </div>
 
         <div className="header__user">
           <div className="header__user-info">
             <div className="header__avatar">
               {user?.photoURL ? (
-                <img src={user.photoURL} alt={user.displayName || ''} />
+                <Image src={user.photoURL} alt={user.displayName || ''} width={20} height={20}/>
               ) : (
                 <BiUser />
               )}

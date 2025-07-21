@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { SearchResult } from '@/lib/deezer/search-module';
 import deezerService from '@/lib/deezer/deezer-service';
+import Image from 'next/image';
 
 interface RelatedTracksProps {
   artistId: number;
@@ -71,9 +72,11 @@ export default function RelatedTracks({ artistId, currentTrackId }: RelatedTrack
           <li key={track.id} className="related-tracks__item">
             <Link href={`/track/${track.id}`} className="related-tracks__link">
               <div className="related-tracks__image">
-                <img 
+                <Image 
                   src={track.album.cover_small} 
                   alt={track.title} 
+                  width={50}
+                  height={50}
                   loading="lazy"
                 />
               </div>

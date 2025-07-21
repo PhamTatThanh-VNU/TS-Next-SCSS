@@ -17,8 +17,12 @@ export default function Login() {
     try {
       await signInWithGoogle();
       router.push('/dashboard'); 
-    } catch (error: any) {
-      setError(error.message || 'Đã xảy ra lỗi khi đăng nhập');
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('Đã xảy ra lỗi khi đăng nhập');
+      }
     } finally {
       setIsLoading(false);
     }

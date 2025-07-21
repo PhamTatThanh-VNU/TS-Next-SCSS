@@ -21,7 +21,6 @@ export default function PlayerControls({ track, prevTrackId, nextTrackId }: Play
   useEffect(() => {
     // Tạo audio element khi component mount
     const audio = new Audio(track.preview);
-    audio.volume = volume;
     audioRef.current = audio;
 
     // Cập nhật thời gian phát
@@ -45,7 +44,6 @@ export default function PlayerControls({ track, prevTrackId, nextTrackId }: Play
     };
   }, [track.preview]);
 
-  // Xử lý thay đổi volume
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = volume;
@@ -110,7 +108,7 @@ export default function PlayerControls({ track, prevTrackId, nextTrackId }: Play
           type="range"
           className="player-controls__progress-bar"
           min="0"
-          max="30" // Deezer preview thường chỉ dài 30s
+          max="30"
           step="0.01"
           value={currentTime}
           onChange={handleProgressChange}
