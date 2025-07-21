@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import { BiArrowBack } from 'react-icons/bi';
 import Link from 'next/link';
 import deezerService from '@/lib/deezer/deezer-service';
-import Header from '@/components/dashboard/Header';
 import ProtectedRoute from '@/lib/utils/ProtectedRoute';
 import PlayerControls from '@/components/player/PlayerControls';
 import TrackInfo from '@/components/player/TrackInfo';
@@ -58,8 +57,7 @@ export default function TrackPage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <div className="track-player">
-          <Header />
+        <div className="track-player">          
           <div className="track-player__loading">
             <div className="spinner"></div>
             <p>Đang tải thông tin bài hát...</p>
@@ -72,8 +70,7 @@ export default function TrackPage() {
   if (error) {
     return (
       <ProtectedRoute>
-        <div className="track-player">
-          <Header />
+        <div className="track-player">          
           <div className="track-player__error">
             <p>{error}</p>
             <Link href="/dashboard" className="track-player__back-btn">
@@ -88,8 +85,7 @@ export default function TrackPage() {
   if (!track) {
     return (
       <ProtectedRoute>
-        <div className="track-player">
-          <Header />
+        <div className="track-player">        
           <div className="track-player__not-found">
             <p>Không tìm thấy bài hát</p>
             <Link href="/dashboard" className="track-player__back-btn">
@@ -103,9 +99,7 @@ export default function TrackPage() {
 
   return (
     <ProtectedRoute>
-      <div className="track-player">
-        <Header />
-        
+      <div className="track-player">              
         <div className="track-player__container">
           <div className="track-player__header">
             <Link href="/dashboard" className="track-player__back-link">

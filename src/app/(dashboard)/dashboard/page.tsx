@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import ProtectedRoute from '@/lib/utils/ProtectedRoute';
-import Header from '@/components/dashboard/Header';
 import SearchBar from '@/components/dashboard/SearchBar';
 import TrackList from '@/components/dashboard/TrackList';
 import { SearchResult } from '@/lib/deezer/search-module';
@@ -46,8 +45,7 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <div className="dashboard">
-        <Header />
+      <div className="dashboard">        
         
         <main className="dashboard__main">
           <div className="dashboard__container">

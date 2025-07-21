@@ -5,7 +5,6 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { BiArrowBack } from 'react-icons/bi';
 import ProtectedRoute from '@/lib/utils/ProtectedRoute';
-import Header from '@/components/dashboard/Header';
 import deezerService from '@/lib/deezer/deezer-service';
 import { Artist, SearchResult } from '@/lib/deezer/search-module';
 import Image from 'next/image';
@@ -44,8 +43,7 @@ export default function ArtistPage() {
   if (loading) {
     return (
       <ProtectedRoute>
-        <div className="artist-page">
-          <Header />
+        <div className="artist-page">          
           <div className="artist-page__loading">
             <div className="spinner"></div>
             <p>Đang tải thông tin nghệ sĩ...</p>
@@ -58,8 +56,7 @@ export default function ArtistPage() {
   if (error) {
     return (
       <ProtectedRoute>
-        <div className="artist-page">
-          <Header />
+        <div className="artist-page">          
           <div className="artist-page__error">
             <p>{error}</p>
             <Link href="/dashboard" className="artist-page__back-btn">
@@ -74,8 +71,7 @@ export default function ArtistPage() {
   if (!artist) {
     return (
       <ProtectedRoute>
-        <div className="artist-page">
-          <Header />
+        <div className="artist-page">          
           <div className="artist-page__not-found">
             <p>Không tìm thấy thông tin nghệ sĩ</p>
             <Link href="/dashboard" className="artist-page__back-btn">
@@ -89,8 +85,7 @@ export default function ArtistPage() {
 
   return (
     <ProtectedRoute>
-      <div className="artist-page">
-        <Header />
+      <div className="artist-page">        
         
         <div className="artist-page__container">
           <div className="artist-page__header">

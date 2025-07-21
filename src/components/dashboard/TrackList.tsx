@@ -2,7 +2,6 @@
 
 import { SearchResult } from '@/lib/deezer/search-module';
 import TrackItem from './TrackItem';
-import Header from './Header';
 
 interface TrackListProps {
   tracks: SearchResult[];
@@ -13,8 +12,7 @@ interface TrackListProps {
 export default function TrackList({ tracks, loading, title = "Kết quả tìm kiếm" }: TrackListProps) {
   if (loading) {
     return (
-      <div className="track-list track-list--loading">
-        <Header />
+      <div className="track-list track-list--loading">        
         <div className="track-list__container">
           <div className="track-list__header">
             <h2>{title}</h2>
@@ -30,8 +28,7 @@ export default function TrackList({ tracks, loading, title = "Kết quả tìm k
 
   if (tracks.length === 0) {
     return (
-      <div className="track-list">
-        <Header />
+      <div className="track-list">        
         <div className="track-list__container">
           <div className="track-list__header">
             <h2>{title}</h2>
@@ -45,8 +42,7 @@ export default function TrackList({ tracks, loading, title = "Kết quả tìm k
   }
 
   return (
-    <div className="track-list">
-      <Header />
+    <div className="track-list">      
       <div className="track-list__container">
         <div className="track-list__header">
           <h2>{title} ({tracks.length})</h2>
