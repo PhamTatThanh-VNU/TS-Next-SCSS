@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from 'firebase/auth';
 import { onAuthStateChange, signOut } from '@/lib/firebase/auth';
+import { usePathname, useRouter } from 'next/navigation';
 
 type AuthContextType = {
   user: User | null;
@@ -18,7 +19,9 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-
+  const pathname = usePathname();
+  const router = useRouter();
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChange((user) => {
       setUser(user);
@@ -26,6 +29,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => unsubscribe();
   }, []);
+  
+  useEffect(() => {
+    if (user && pathname === '/login') {
+      router.replace('/dashboard');
+    }
+  }, [user, pathname, router]);
 
   return (
     <AuthContext.Provider value={{ user, signOut }}>
